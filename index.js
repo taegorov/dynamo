@@ -6,18 +6,20 @@ const schema = new dynamoose.Schema({
   'phone': String,
 });
 
-// first arguement, tells dynamoose what table to connect to
-const friendModel = dynamoose.model('friends', schema);
+// first argument, tells dynamoose what table to connect to
+const peopleModel = dynamoose.model('people', schema);
 
 exports.handler = async (event) => {
 
   let list;
 
+  console.log(event.pathParameters);
+
   if (event.pathParameters) {
     const id = event.pathParameters.id;
-    list = await friendModel.query('id').eq(id).exec();
+    list = await peopleModel.query('id').eq(id).exec();
   } else {
-    list = await friendModel.scan().exec();
+    list = await peopleModel.scan().exec();
   }
 
 
