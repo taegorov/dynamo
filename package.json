@@ -1,5 +1,23 @@
 {
   "dependencies": {
     "dynamoose": "^2.7.3"
-  }
+  },
+  "name": "dynamo",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taegorov/dynamo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taegorov/dynamo/issues"
+  },
+  "homepage": "https://github.com/taegorov/dynamo#readme"
 }
