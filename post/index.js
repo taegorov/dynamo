@@ -1,7 +1,5 @@
 const dynamoose = require('dynamoose');
 
-// gives us a random unique ID, saves trouble of creating a random num and making sure it's not a duplicate
-const uuid = require('uuid');
 
 const schema = new dynamoose.Schema({
   'id': String,
@@ -9,26 +7,30 @@ const schema = new dynamoose.Schema({
   'phone': String,
 });
 
+// tells dynamoose what table to connect with
 const peopleModel = dynamoose.model('people', schema);
 
 
 exports.handler = async (event) => {
+  const body = JSON.parse(event.body);
+  console.log('body', body);
+  console.log('event', event);
+  let response;
 
-  let list;
+  try {
+    const newPerson = await peopleModel.create(body);
+    response = {
+      statusCode: 201,
+      body: JSON.stringify(newPerson),
+    };
 
-  const { name, phone } = JSON.parse(event.pathParameters);
-  const id = uuid();
-
-  let record = new peopleModel({ id, name, phone });
-  list = await record.save();
-
-
-
-
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify(list),
-  };
+    return response;
+  } catch (e) {
+    response = {
+      statusCode: 500,
+      body: JSON.stringify('could not do'),
+    };
+  }
 
   return response;
 };
